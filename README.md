@@ -12,7 +12,7 @@ Unity3d, Coroutine, scripting
 
 In my exprience, generally coroutine code can be classified into two kinds.
 
-One is functional one block. for example 
+One is a functional block. for example 
 
 ```csharp
 IEnumerator OneFunction(){
@@ -20,7 +20,7 @@ IEnumerator OneFunction(){
 }
 ```
 
-Other is squencial code. It consist of functional block coroutines.
+Other is a squencial code. It consist of functional block coroutines.
 ```csharp
 IEnumerator Sequncial(){
   yield return StartCoroutine(A());
@@ -48,7 +48,7 @@ public void Start(){
 
 [AssetStore](https://www.assetstore.unity3d.com/kr/#!/content/109785)
 
-## Chain document.
+## Reference
 
 ### Basic
 all block wait previous block. 
@@ -154,4 +154,24 @@ IEnumerator Parallel(IEnumerator[] routines)
         yield return null;
 }
 ```
+
+### WaitFor(Func<bool>)
+
+wait for a specific condition.
+
+```csharp
+void Start(){
+  CoroutineChain.Start
+          .WaitFor(()=>m_timer > 3f)
+          .Log("Complete");
+}
+
+float m_timer = 0f;
+
+void Update(){
+  m_timer += Time.deltaTime;
+}
+
+```
+
 
